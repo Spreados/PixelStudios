@@ -53,6 +53,7 @@ class Order(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     customer_email: str
     customer_note: Optional[str] = None
+    discord_handle: Optional[str] = None
     items: List[OrderItem]
     total_amount: float
     status: str = "pending"
@@ -61,6 +62,7 @@ class Order(BaseModel):
 class OrderCreate(BaseModel):
     customer_email: str
     customer_note: Optional[str] = None
+    discord_handle: Optional[str] = None
     items: List[OrderItem]
 
 # Helper functions for datetime serialization
