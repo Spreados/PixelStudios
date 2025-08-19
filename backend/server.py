@@ -187,6 +187,13 @@ async def get_product(product_id: str):
 
 @api_router.post("/orders", response_model=Order)
 async def create_order(order_data: OrderCreate):
+    # Validate order data
+    if not order_data.customer_email or not order_data.customer_email.strip():
+        raise HTTPException(status_code=422, detail="Customer email is required")
+    
+    if not order_data.items or len(order_data.items) == 0:
+        raise HTTPException(status_code=422, detail="Order must contain at least one item")
+    
     # Calculate total amount
     total_amount = sum(item.price * item.quantity for item in order_data.items)
     
