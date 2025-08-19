@@ -26,6 +26,7 @@ function App() {
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
   const [customerEmail, setCustomerEmail] = useState('');
   const [customerNote, setCustomerNote] = useState('');
+  const [discordHandle, setDiscordHandle] = useState('');
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
 
