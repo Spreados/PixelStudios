@@ -278,7 +278,10 @@ function App() {
           <Button 
             onClick={handleAddToCart}
             className="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white disabled:opacity-50 disabled:cursor-not-allowed"
-            disabled={product.category === 'art' && product.options?.styles && !selectedStyle}
+            disabled={
+              (product.category === 'art' && product.options?.styles && !selectedStyle) ||
+              (product.category === 'video' && product.options?.durations && !selectedDuration)
+            }
           >
             Add to Cart
             <ArrowRight className="ml-2 h-4 w-4" />
