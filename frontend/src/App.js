@@ -140,6 +140,7 @@ function App() {
       setCart([]);
       setCustomerEmail('');
       setCustomerNote('');
+      setDiscordHandle('');
       setIsCheckoutOpen(false);
 
       toast({
