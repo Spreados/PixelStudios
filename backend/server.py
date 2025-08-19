@@ -124,30 +124,19 @@ async def init_products():
             },
             {
                 "id": str(uuid.uuid4()),
-                "name": "Video Editing - 1 Minute",
-                "description": "Professional video editing for short form content, perfect for social media and marketing.",
+                "name": "Professional Video Editing",
+                "description": "Expert video editing services for all your content needs. Choose from standard durations or request a custom quote.",
                 "price": 35.0,
                 "category": "video",
                 "image_url": "https://images.unsplash.com/photo-1712904284384-4ac912d0c9d8",
-                "options": {"duration": "1 minute"}
-            },
-            {
-                "id": str(uuid.uuid4()),
-                "name": "Video Editing - 5 Minutes",
-                "description": "Professional video editing for medium length content, ideal for tutorials and presentations.",
-                "price": 75.0,
-                "category": "video",
-                "image_url": "https://images.unsplash.com/photo-1712904284384-4ac912d0c9d8",
-                "options": {"duration": "5 minutes"}
-            },
-            {
-                "id": str(uuid.uuid4()),
-                "name": "Video Editing - 20+ Minutes",
-                "description": "Professional video editing for long form content, perfect for documentaries and detailed presentations.",
-                "price": 120.0,
-                "category": "video",
-                "image_url": "https://images.unsplash.com/photo-1712904284384-4ac912d0c9d8",
-                "options": {"duration": "20+ minutes"}
+                "options": {
+                    "durations": [
+                        {"name": "1 Minute Video", "price": 35.0, "description": "Perfect for social media and marketing"},
+                        {"name": "5 Minutes Video", "price": 75.0, "description": "Ideal for tutorials and presentations"},
+                        {"name": "20+ Minutes Video", "price": 120.0, "description": "Perfect for documentaries and detailed presentations"},
+                        {"name": "Custom Duration", "price": 0.01, "description": "Contact for quote - tailored to your specific needs"}
+                    ]
+                }
             },
             {
                 "id": str(uuid.uuid4()),
@@ -168,6 +157,8 @@ async def init_products():
                 "options": None
             }
         ]
+        # Clear existing products and insert new ones
+        await db.products.delete_many({})
         await db.products.insert_many(products)
 
 # API Routes
