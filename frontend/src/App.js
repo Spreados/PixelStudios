@@ -162,16 +162,24 @@ function App() {
 
   const ProductCard = ({ product }) => {
     const [selectedStyle, setSelectedStyle] = useState('');
+    const [selectedDuration, setSelectedDuration] = useState('');
     
     const handleAddToCart = () => {
       let options = null;
+      let price = product.price;
+      
       if (product.category === 'art' && selectedStyle) {
         const style = product.options?.styles?.find(s => s.name === selectedStyle);
         options = { style: style };
+      } else if (product.category === 'video' && selectedDuration) {
+        const duration = product.options?.durations?.find(d => d.name === selectedDuration);
+        options = { duration: duration };
+        price = duration?.price || product.price;
       } else if (product.options) {
         options = product.options;
       }
-      addToCart(product, options);
+      
+      addToCart({ ...product, price }, options);
     };
 
     const getCategoryIcon = (category) => {
@@ -182,6 +190,17 @@ function App() {
         case 'course': return <BookOpen className="h-5 w-5" />;
         default: return <Package className="h-5 w-5" />;
       }
+    };
+
+    const getDisplayPrice = () => {
+      if (product.category === 'video' && selectedDuration) {
+        const duration = product.options?.durations?.find(d => d.name === selectedDuration);
+        if (duration?.name === 'Custom Duration') {
+          return 'Contact for Quote';
+        }
+        return `$${duration?.price || product.price}`;
+      }
+      return `$${product.price}`;
     };
 
     return (
