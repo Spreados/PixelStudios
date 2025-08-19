@@ -130,6 +130,7 @@ function App() {
       const orderData = {
         customer_email: customerEmail,
         customer_note: customerNote,
+        discord_handle: discordHandle,
         items: cart
       };
 
