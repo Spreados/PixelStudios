@@ -218,7 +218,7 @@ function App() {
               {getCategoryIcon(product.category)}
               <span className="ml-1 capitalize">{product.category}</span>
             </Badge>
-            <span className="text-2xl font-bold text-emerald-600">${product.price}</span>
+            <span className="text-2xl font-bold text-emerald-600">{getDisplayPrice()}</span>
           </div>
           <CardTitle className="text-xl group-hover:text-emerald-600 transition-colors">
             {product.name}
@@ -228,8 +228,8 @@ function App() {
           </CardDescription>
         </CardHeader>
         
-        {product.category === 'art' && product.options?.styles && (
-          <CardContent>
+        <CardContent className="space-y-4">
+          {product.category === 'art' && product.options?.styles && (
             <div className="space-y-2">
               <label className="text-sm font-medium">Choose Art Style:</label>
               <Select onValueChange={setSelectedStyle}>
@@ -248,8 +248,31 @@ function App() {
                 </SelectContent>
               </Select>
             </div>
-          </CardContent>
-        )}
+          )}
+          
+          {product.category === 'video' && product.options?.durations && (
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Choose Video Duration:</label>
+              <Select onValueChange={setSelectedDuration}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select video duration" />
+                </SelectTrigger>
+                <SelectContent>
+                  {product.options.durations.map((duration, index) => (
+                    <SelectItem key={index} value={duration.name}>
+                      <div>
+                        <div className="font-medium">
+                          {duration.name} - {duration.name === 'Custom Duration' ? 'Contact for Quote' : `$${duration.price}`}
+                        </div>
+                        <div className="text-xs text-gray-500">{duration.description}</div>
+                      </div>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          )}
+        </CardContent>
         
         <CardFooter>
           <Button 
